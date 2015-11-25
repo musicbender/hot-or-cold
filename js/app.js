@@ -23,6 +23,16 @@ $(document).ready(function(){
     $('form').submit(function(){
         guess = $('#userguess').val();
         
+        checkGuess();
+        
+        function checkGuess() {
+            if (guess == secretNumber){
+                $('#feedback').text("You got it!");
+            }
+            else {
+                holdCold();
+            }
+        }
         
         function hotCold(){
             if ((guess > secretNumber + 50) || (guess < secretNumber - 50)){
@@ -46,12 +56,7 @@ $(document).ready(function(){
         }  
     });
     
-    
-    
-    
-    function checkGuess(){
-        
-    }
+
     
     
 	/*--- Display information modal box ---*/
