@@ -1,6 +1,13 @@
 
 $(document).ready(function(){
-	
+	function newGame() {
+        var secretNumber = randomNumber();
+    }
+    
+    function randomNumber() {
+        return Math.floor((Math.random()* 10) + 1);
+    }
+    
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
