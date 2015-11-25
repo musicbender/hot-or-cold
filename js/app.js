@@ -1,12 +1,24 @@
 
 $(document).ready(function(){
+    
+    //Setting up new game
+    var secretNumber;
+    
 	function newGame() {
-        var secretNumber = randomNumber();
+        secretNumber = randomNumber();
+        //console.log('DEBUG: ' + secretNumber);
+        $('#feedback').text('Make your Guess!');
+        $('#count').text('0');
+        $('#guesslist').empty();
     }
     
     function randomNumber() {
-        return Math.floor((Math.random()* 10) + 1);
+        return Math.floor((Math.random()* 100) + 1);
     }
+    
+    newGmae();
+    
+    
     
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
