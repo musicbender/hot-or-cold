@@ -48,11 +48,14 @@ $(document).ready(function(){
             else if (((guess <= secretNumber + 20) && (guess > secretNumber + 10)) || ((guess >= secretNumber - 20) && (guess < secretNumber - 10))){
                 $('#feedback').text("Hot!");
             }
-            else if (((guess <= secretNumber + 10) && (guess >= secretNumber + 1)) || ((guess >= secretNumber - 10) && (guess <= secretNumber - 1))){
+            else if (((guess <= secretNumber + 10) && (guess > secretNumber + 2)) || ((guess >= secretNumber - 10) && (guess < secretNumber - 2))){
                 $('#feedback').text("Very Hot!");
             }
+            else if (((guess <= secretNumber + 2) && (guess >= secretNumber + 1)) || ((guess >= secretNumber - 2) && (guess <= secretNumber - 1))){
+                $('#feedback').text("SMOKIN!!!");
+            }
             else{
-                $('#feedback').text("error");
+                $('#feedback').text("Keep Trying!");
             }
         }  
         
