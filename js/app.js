@@ -1,12 +1,13 @@
 
 $(document).ready(function(){
     
-    //Setting up new game
-    var secretNumber;
+    /*--Setting up new game--*/
+    var secretNumber,
+        guess;
     
 	function newGame() {
         secretNumber = randomNumber();
-        //console.log('DEBUG: ' + secretNumber);
+        
         $('#feedback').text('Make your Guess!');
         $('#count').text('0');
         $('#guesslist').empty();
@@ -16,8 +17,41 @@ $(document).ready(function(){
         return Math.floor((Math.random()* 100) + 1);
     }
     
-    newGmae();
+    newGame();
     
+    
+    $('form').submit(function(){
+        guess = $('#userguess').val();
+        
+        
+        function hotCold(){
+            if ((guess > secretNumber + 50) || (guess < secretNumber - 50)){
+                $('#feedback').text("Ice Cold");
+            }
+            else if (((guess < secretNumber + 50) && (guess > secretNumber + 30)) || ((guess > secretNumber - 50) && (guess < secretNumber - 30))){
+                $('#feedback').text("Cold");
+            }
+            else if (((guess < secretNumber + 30) && (guess > secretNumber + 20)) || ((guess > secretNumber - 30) && (guess < secretNumber - 20))) {
+                $('#feedback').text("Warm");
+            }  
+            else if (((guess < secretNumber + 20) && (guess > secretNumber + 10)) || ((guess > secretNumber - 20) && (guess < secretNumber - 10))){
+                $('#feedback').text("Hot!");
+            }
+            else if (((guess < secretNumber + 10) && (guess > secretNumber + 1)) || ((guess > secretNumber - 10) && (guess < secretNumber - 1))){
+                $('#feedback').text("Very Hot!");
+            }
+            else{
+                $('#feedback').text("error");
+            }
+        }  
+    });
+    
+    
+    
+    
+    function checkGuess(){
+        
+    }
     
     
 	/*--- Display information modal box ---*/
