@@ -21,8 +21,7 @@ $(document).ready(function(){
     
     
     $('form').submit(function(){
-        guess = $('#userguess').val();
-        
+        guess = $('#userGuess').val();
         checkGuess();
         
         function checkGuess() {
@@ -30,30 +29,36 @@ $(document).ready(function(){
                 $('#feedback').text("You got it!");
             }
             else {
-                holdCold();
+                console.log('DEBUG: Run hotCold()');
+                hotCold();
             }
         }
         
         function hotCold(){
+            console.log('DEBUG: Secret Number is ' + secretNumber + ' Guess is: ' + guess);
             if ((guess > secretNumber + 50) || (guess < secretNumber - 50)){
                 $('#feedback').text("Ice Cold");
             }
-            else if (((guess < secretNumber + 50) && (guess > secretNumber + 30)) || ((guess > secretNumber - 50) && (guess < secretNumber - 30))){
+            else if (((guess <= secretNumber + 50) && (guess > secretNumber + 30)) || ((guess >= secretNumber - 50) && (guess < secretNumber - 30))){
                 $('#feedback').text("Cold");
             }
-            else if (((guess < secretNumber + 30) && (guess > secretNumber + 20)) || ((guess > secretNumber - 30) && (guess < secretNumber - 20))) {
+            else if (((guess <= secretNumber + 30) && (guess > secretNumber + 20)) || ((guess >= secretNumber - 30) && (guess < secretNumber - 20))) {
                 $('#feedback').text("Warm");
             }  
-            else if (((guess < secretNumber + 20) && (guess > secretNumber + 10)) || ((guess > secretNumber - 20) && (guess < secretNumber - 10))){
+            else if (((guess <= secretNumber + 20) && (guess > secretNumber + 10)) || ((guess >= secretNumber - 20) && (guess < secretNumber - 10))){
                 $('#feedback').text("Hot!");
             }
-            else if (((guess < secretNumber + 10) && (guess > secretNumber + 1)) || ((guess > secretNumber - 10) && (guess < secretNumber - 1))){
+            else if (((guess <= secretNumber + 10) && (guess >= secretNumber + 1)) || ((guess >= secretNumber - 10) && (guess <= secretNumber - 1))){
                 $('#feedback').text("Very Hot!");
             }
             else{
                 $('#feedback').text("error");
             }
         }  
+        
+        $('#userGuess').val(''); //clear textbox
+        
+        return false;
     });
     
 
