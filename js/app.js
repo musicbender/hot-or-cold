@@ -18,9 +18,9 @@ $(document).ready(function(){
         secretNumber = randomNumber();
         console.log('DEBUG: Goats');
         $('#feedback').text('Make your Guess!');
-        $('#count').text('0');
-        $('#guessList').empty();
         count = 0;
+        $('#count').text(count);
+        $('#guessList').empty();
     }
     
     //create random number between 1-100
@@ -80,10 +80,10 @@ $(document).ready(function(){
         
         function rangeCheck() {
             if ((guess < 0) || (guess > 100)){
-                return false;
+                return false; //not 1-100
             }
             else {
-                return true;
+                return true; //is 1-100
             }
         }
         
@@ -95,7 +95,6 @@ $(document).ready(function(){
             //adds this guess to guesslist
             $('#guessList').append('<li>' + guess + ' </li>');
         }
-        
         
         //Tells you if your incorrect answer is hot, cold, etc...
         function hotCold(){
@@ -117,7 +116,7 @@ $(document).ready(function(){
             else if (((guess <= secretNumber + 2) && (guess >= secretNumber + 1)) || ((guess >= secretNumber - 2) && (guess <= secretNumber - 1))){
                 $('#feedback').text("SMOKIN!!!");
             }
-            else{
+            else {
                 $('#feedback').text("Keep Trying!");
             }
         }  
