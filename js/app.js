@@ -8,6 +8,11 @@ $(document).ready(function(){
 
     newGame();
     
+    //Run newGame() when clicking New Game at the top
+    $('.new').click(function(){
+        newGame();
+    });
+    
     //functions when creating a new game
 	function newGame() {
         secretNumber = randomNumber();
@@ -23,12 +28,7 @@ $(document).ready(function(){
         return Math.floor((Math.random()* 100) + 1);
     }
     
-    //Run newGame() when clicking New Game at the top
-    $('.new').click(function(){
-        newGame();
-    });
-    
-    
+    //Actions when clicking submit button
     $('form').submit(function(){
         guess = $('#userGuess').val();
         checkGuess();
@@ -43,32 +43,55 @@ $(document).ready(function(){
         //clear textbox
         $('#userGuess').val('');
         
-        //Checks if guess is correct answer, if not runs hotCold() function
-        function checkGuess() {
-            if (guess == secretNumber){
+        
+        /*----Submition Functions------*/
+        
+        function checkGuess(){
+            if (!numberCheck()){
+                console.log("DEBUG: !numcheck");
+                $('#feedback').text("Please pick a number!");
+            }
+            
+            else if (!rangeCheck()){
+                $('#feedback').text("Pick a number between 1-100!");
+            }
+            
+            else if (rightGuess()){
                 $('#feedback').text("You got it!");
             }
             else {
-                console.log('DEBUG: Run hotCold()');
                 hotCold();
             }
         }
         
-        function validateGuess(){
-            if (Number.isIntegar(guess)) {
-                if ((guess < 0) || (guess > 100)){
-                    $('#feedback').text("Pick a number that's 1-100");
-                    return false;
-                }
-                else {
-                    return true;
-                }
+        //Checks if guess is correct answer, if not runs hotCold() function
+        function rightGuess() {
+            if (guess == secretNumber){
+                return true;
             }
             else {
-                $('#feedback').text("Pick a valid number!");
                 return false;
             }
         }
+        
+        function numberCheck(){
+            if (isNaN(guess)) {
+                return false; //not a number
+            }
+            else {
+                return true; //is a number
+            }
+        }
+        
+        function rangeCheck() {
+            if ((guess < 0) || (guess > 100)){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        
         
         //Tells you if your incorrect answer is hot, cold, etc...
         function hotCold(){
