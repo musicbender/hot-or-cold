@@ -3,23 +3,25 @@ $(document).ready(function(){
     
     /*--Setting up new game--*/
     var secretNumber,
-        guess;
+        guess,
+        count = 0;
+
+    newGame();
     
     //functions when creating a new game
 	function newGame() {
         secretNumber = randomNumber();
-        
+        console.log('DEBUG: Goats');
         $('#feedback').text('Make your Guess!');
         $('#count').text('0');
-        $('#guesslist').empty();
+        $('#guessList').empty();
+        count = 0;
     }
     
     //create random number between 1-100
     function randomNumber() {
         return Math.floor((Math.random()* 100) + 1);
     }
-    
-    newGame();
     
     //Run newGame() when clicking New Game at the top
     $('.new').click(function(){
@@ -30,6 +32,16 @@ $(document).ready(function(){
     $('form').submit(function(){
         guess = $('#userGuess').val();
         checkGuess();
+        
+        //Increases guess count
+        count++;
+        $('#count').text(count);
+        
+        //adds this guess to guesslist
+        $('#guessList').append('<li>' + guess + ' </li>');
+        
+        //clear textbox
+        $('#userGuess').val('');
         
         //Checks if guess is correct answer, if not runs hotCold() function
         function checkGuess() {
@@ -42,9 +54,24 @@ $(document).ready(function(){
             }
         }
         
+        function validateGuess(){
+            if (Number.isIntegar(guess)) {
+                if ((guess < 0) || (guess > 100)){
+                    $('#feedback').text("Pick a number that's 1-100");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                $('#feedback').text("Pick a valid number!");
+                return false;
+            }
+        }
+        
         //Tells you if your incorrect answer is hot, cold, etc...
         function hotCold(){
-            console.log('DEBUG: Secret Number is ' + secretNumber + ' Guess is: ' + guess);
             if ((guess > secretNumber + 50) || (guess < secretNumber - 50)){
                 $('#feedback').text("Ice Cold");
             }
@@ -68,17 +95,10 @@ $(document).ready(function(){
             }
         }  
         
-        //adds this guess to guesslist
-        $('#guessList').append('<li>' + guess + ' </li>');
-        
-        //clear textbox
-        $('#userGuess').val('');
-        
         return false;
     });
     
 
-    
     
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
