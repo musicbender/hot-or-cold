@@ -5,6 +5,7 @@ $(document).ready(function(){
     var secretNumber,
         guess;
     
+    //functions when creating a new game
 	function newGame() {
         secretNumber = randomNumber();
         
@@ -13,17 +14,24 @@ $(document).ready(function(){
         $('#guesslist').empty();
     }
     
+    //create random number between 1-100
     function randomNumber() {
         return Math.floor((Math.random()* 100) + 1);
     }
     
     newGame();
     
+    //Run newGame() when clicking New Game at the top
+    $('.new').click(function(){
+        newGame();
+    });
+    
     
     $('form').submit(function(){
         guess = $('#userGuess').val();
         checkGuess();
         
+        //Checks if guess is correct answer, if not runs hotCold() function
         function checkGuess() {
             if (guess == secretNumber){
                 $('#feedback').text("You got it!");
@@ -34,6 +42,7 @@ $(document).ready(function(){
             }
         }
         
+        //Tells you if your incorrect answer is hot, cold, etc...
         function hotCold(){
             console.log('DEBUG: Secret Number is ' + secretNumber + ' Guess is: ' + guess);
             if ((guess > secretNumber + 50) || (guess < secretNumber - 50)){
@@ -59,7 +68,11 @@ $(document).ready(function(){
             }
         }  
         
-        $('#userGuess').val(''); //clear textbox
+        //adds this guess to guesslist
+        $('#guessList').append('<li>' + guess + ' </li>');
+        
+        //clear textbox
+        $('#userGuess').val('');
         
         return false;
     });
