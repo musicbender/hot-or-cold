@@ -33,13 +33,6 @@ $(document).ready(function(){
         guess = $('#userGuess').val();
         checkGuess();
         
-        //Increases guess count
-        count++;
-        $('#count').text(count);
-        
-        //adds this guess to guesslist
-        $('#guessList').append('<li>' + guess + ' </li>');
-        
         //clear textbox
         $('#userGuess').val('');
         
@@ -58,9 +51,11 @@ $(document).ready(function(){
             
             else if (rightGuess()){
                 $('#feedback').text("You got it!");
+                listAndCount()
             }
             else {
                 hotCold();
+                listAndCount();
             }
         }
         
@@ -90,6 +85,15 @@ $(document).ready(function(){
             else {
                 return true;
             }
+        }
+        
+        function listAndCount() {
+            //Increases guess count
+            count++;
+            $('#count').text(count);
+
+            //adds this guess to guesslist
+            $('#guessList').append('<li>' + guess + ' </li>');
         }
         
         
